@@ -1,0 +1,21 @@
+<manifest package="com.jaychang.widget.spp"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application>
+        <activity
+            android:name=".GalleryActivity"
+            android:theme="@style/spp_Theme"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            />
+        <activity
+            android:name=".CameraHiddenActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            />
+    </application>
+
+</manifest>
