@@ -23,6 +23,7 @@ public class CameraHiddenActivity extends AppCompatActivity {
 
   private static final int RC_CAMERA = 1001;
   private static final int RC_CAMERA_PERMISSION = 1002;
+  private static final String AUTHORITY = "com.jaychang.widget.spp.provider";
   private Uri photoUri;
 
   @Override
@@ -53,7 +54,7 @@ public class CameraHiddenActivity extends AppCompatActivity {
       }
 
       if (photoFile != null) {
-        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", photoFile);
+        Uri uri = FileProvider.getUriForFile(this, AUTHORITY, photoFile);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         activity.startActivityForResult(intent, requestCode);
