@@ -9,7 +9,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.StringRes;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,8 +172,8 @@ public class SimplePhotoPicker {
 
   void onPhotoPicked(Uri uri) {
     if (photoEmitter != null) {
-      Uri copy = Uri.fromFile(new File(uri.getPath()));
-      photoEmitter.onNext(copy);
+//      Uri copy = Uri.fromFile(new File(uri.getPath()));
+      photoEmitter.onNext(uri);
       photoEmitter.onComplete();
     }
   }

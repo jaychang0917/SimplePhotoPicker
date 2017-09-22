@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -52,15 +53,11 @@ public class CameraHiddenActivity extends AppCompatActivity {
       }
 
       if (photoFile != null) {
-        try {
-          Uri uri = Uri.fromFile(photoFile);
-          intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-          activity.startActivityForResult(intent, requestCode);
-          return uri;
-        } catch (Exception e) {
-          // Prevent FileUriExposedException from Android N
-          e.printStackTrace();
-        }
+        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", photoFile);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        activity.startActivityForResult(intent, requestCode);
+        return uri;
       }
     } else {
       Log.d(activity.getClass().getSimpleName(), "No camera app.");
@@ -96,7 +93,7 @@ public class CameraHiddenActivity extends AppCompatActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == RC_CAMERA && resultCode == RESULT_OK && photoUri != null) {
+    if (requestCode == RC_CAMERA && photoUri != null) {
       SimplePhotoPicker.getInstance().onPhotoPicked(photoUri);
     }
     finish();
